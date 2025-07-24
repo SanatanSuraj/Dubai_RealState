@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --desert-gold: #c6a664;
+  --rich-navy: #0c2836;
+  --pearl-white: #f9f9f7;
+  --obsidian-black: #1a1a1a;
+  --deep-teal: #0c6e6e;
+}
+
+/* Prevent horizontal overflow */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure proper positioning for next/image components */
+.relative > span[style*="box-sizing: border-box"] {
+  z-index: 1;
+}
+
+/* Better handling for image overlays */
+[class*="z-"] {
+  isolation: isolate;
+}
+
+.video-fallback {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Ensure containers don't overflow horizontally */
+.container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1 {
+    @apply font-playfair font-semibold text-5xl leading-tight;
+  }
+
+  h2 {
+    @apply font-playfair font-semibold text-4xl;
+  }
+
+  h3 {
+    @apply font-lora font-medium text-2xl;
+  }
+
+  p {
+    @apply font-inter font-normal text-lg;
+  }
+}
+
+@layer components {
+  .button-primary {
+    @apply bg-deep-teal text-pearl-white font-inter px-8 py-3 rounded-full transition-all duration-300;
+  }
+
+  .button-primary:hover {
+    @apply bg-transparent border border-desert-gold text-deep-teal;
+  }
+
+  .card {
+    @apply rounded overflow-hidden transition-all duration-300;
+  }
+
+  .card:hover {
+    @apply shadow-lg transform scale-105;
+  }
+
+  .input {
+    @apply border-b border-rich-navy bg-transparent py-2 px-1 focus:outline-none focus:border-desert-gold transition-all duration-300;
+  }
+
+  .glass-morphism {
+    @apply bg-pearl-white/80 backdrop-blur-md;
+  }
+}
+
+/* Floating scrollbar styling */
+html {
+  overflow-y: auto; /* Standard overflow */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: var(--desert-gold) transparent; /* For Firefox: thumb and track colors */
+}
+
+/* Override for modern browsers to make scrollbar overlay content */
+@supports (overflow-y: overlay) {
+  html {
+    overflow-y: overlay; /* Makes scrollbar overlay content instead of taking up space */
+  }
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px; /* Width for vertical scrollbar */
+  height: 0; /* Hide horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Transparent track for floating effect */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--desert-gold);
+  border-radius: 9999px;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Show scrollbar only when scrolling */
+body:not(:hover)::-webkit-scrollbar-thumb {
+  opacity: 0;
+}
+
+body:hover::-webkit-scrollbar-thumb,
+body.scrolling::-webkit-scrollbar-thumb {
+  opacity: 0.7; /* Semi-transparent when visible */
+}
+
+/* Show on hover */
+::-webkit-scrollbar-thumb:hover {
+  opacity: 1; /* Fully visible on hover */
+}
+*::-webkit-scrollbar-thumb:hover {
+  visibility: visible;
+}
